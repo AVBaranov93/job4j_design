@@ -11,13 +11,12 @@ public class FlatMap<T> implements Iterator<T> {
 
     public FlatMap(Iterator<Iterator<T>> data) {
         this.data = data;
-        cursor = data.next();
     }
     @Override
     public boolean hasNext() {
         while (data.hasNext()) {
             if (cursor.hasNext()) {
-                return cursor.hasNext();
+                break;
             }
             cursor = data.next();
         }
