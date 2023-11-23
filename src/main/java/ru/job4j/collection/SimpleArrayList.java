@@ -11,7 +11,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
     @Override
     public void add(T value) {
-        if (!ensureCapacity()) {
+        if (size == container.length) {
             grow();
         }
         container[size++] = value;
@@ -20,16 +20,14 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T removedElement = container[index];
+        T removedElement = get(index);
         System.arraycopy(container, index + 1, container, index, size - index - 1);
         container[size - 1] = null;
         size--;
@@ -45,7 +43,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
@@ -64,19 +62,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public T next() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return container[index++];
             }
         };
-    }
-
-    private boolean ensureCapacity() {
-        return size < container.length;
     }
 
     private void grow() {
