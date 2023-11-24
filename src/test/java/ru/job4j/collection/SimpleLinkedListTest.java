@@ -107,4 +107,10 @@ class SimpleLinkedListTest {
         assertThatThrownBy(iterator::next)
                 .isInstanceOf(ConcurrentModificationException.class);
     }
+
+    @Test
+    void whenUseGetWithOutOfBoundsIndex() {
+        assertThatThrownBy(() -> list.get(10))
+                .isInstanceOf(IndexOutOfBoundsException.class);
+    }
 }
