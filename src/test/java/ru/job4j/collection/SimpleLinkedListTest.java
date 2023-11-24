@@ -20,6 +20,15 @@ class SimpleLinkedListTest {
     }
 
     @Test
+    void whenOneThenIteratorTrue() {
+        SimpleLinkedList<Integer> sl = new SimpleLinkedList<>();
+        sl.add(1);
+        Iterator<Integer> it = sl.iterator();
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(1);
+    }
+
+    @Test
     void checkIteratorSimple() {
         assertThat(list).hasSize(2);
         list.add(3);
