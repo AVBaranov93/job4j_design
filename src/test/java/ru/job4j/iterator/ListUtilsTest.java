@@ -36,6 +36,20 @@ class ListUtilsTest {
     }
 
     @Test
+    void whenAddAfterThirdElement() {
+        List<Integer> in = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ListUtils.addAfter(in, 3, 100);
+        assertThat(in).containsSequence(1, 2, 3, 4, 100, 5);
+    }
+
+    @Test
+    void whenAddBeforeSecondElement() {
+        List<Integer> in = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ListUtils.addBefore(in, 2, 100);
+        assertThat(in).containsSequence(1, 2, 100, 3, 4, 5);
+    }
+
+    @Test
     void whenAddAfterWithInvalidIndex() {
         assertThatThrownBy(() -> ListUtils.addAfter(input, 3, 2))
                 .isInstanceOf(IndexOutOfBoundsException.class);
