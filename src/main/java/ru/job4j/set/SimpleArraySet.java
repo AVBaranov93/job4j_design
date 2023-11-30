@@ -12,13 +12,7 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
     private int modCount;
     @Override
     public boolean add(T value) {
-        boolean isAdded = true;
-        for (int i = 0; i < set.size(); i++) {
-            if (Objects.equals(value, set.get(i))) {
-                isAdded = false;
-                break;
-            }
-        }
+        boolean isAdded = !contains(value);
         if (isAdded) {
             set.add(value);
             modCount++;
