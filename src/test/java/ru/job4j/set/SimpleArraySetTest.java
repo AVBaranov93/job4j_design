@@ -84,4 +84,13 @@ class SimpleArraySetTest {
         assertThatThrownBy(iterator::hasNext)
                 .isInstanceOf(ConcurrentModificationException.class);
     }
+
+    @Test
+    void whenAddDuplicateAfterGetIteratorHasNextThenOk() {
+        SimpleSet<Integer> set = new SimpleArraySet<>();
+        set.add(1);
+        Iterator<Integer> iterator = set.iterator();
+        set.add(1);
+        assertThat(iterator.hasNext()).isTrue();
+    }
 }
