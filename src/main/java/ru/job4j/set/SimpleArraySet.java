@@ -5,72 +5,38 @@ import ru.job4j.collection.SimpleArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleArraySet<T> implements SimpleSet<T> {
     private SimpleArrayList<T> set = new SimpleArrayList<>(0);
     private int modCount;
     @Override
     public boolean add(T value) {
-        modCount++;
-        return value == null ? addNullValue() : addNotNullValue(value);
-    }
-
-    private boolean addNullValue() {
         boolean isAdded = true;
         for (int i = 0; i < set.size(); i++) {
-            if (set.get(i) == null) {
-                isAdded = false;
-                break;
-            }
-        }
-        if (isAdded) {
-            set.add(null);
-        }
-        return isAdded;
-    }
-
-    private boolean addNotNullValue(T value) {
-        boolean isAdded = true;
-        for (int i = 0; i < set.size(); i++) {
-            if (value.equals(set.get(i))) {
+            if (Objects.equals(value, set.get(i))) {
                 isAdded = false;
                 break;
             }
         }
         if (isAdded) {
             set.add(value);
+            modCount++;
         }
         return isAdded;
     }
 
     @Override
     public boolean contains(T value) {
-        return value == null ? containsNull() : containsNotNull(value);
-    }
-
-    private boolean containsNull() {
         boolean contains = false;
         for (int i = 0; i < set.size(); i++) {
-            if (set.get(i) == null) {
+            if (Objects.equals(value, set.get(i))) {
                 contains = true;
                 break;
             }
         }
         return contains;
     }
-
-    private boolean containsNotNull(T value) {
-        boolean contains = false;
-        for (int i = 0; i < set.size(); i++) {
-            if (value.equals(set.get(i))) {
-                contains = true;
-                break;
-            }
-        }
-        return contains;
-    }
-
-
 
     @Override
     public Iterator<T> iterator() {
