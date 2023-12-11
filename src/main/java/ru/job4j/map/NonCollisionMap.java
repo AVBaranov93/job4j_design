@@ -36,12 +36,21 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         table = newTable;
     }
 
+    private int index(K key) {
+        return indexFor(hash(Objects.hashCode(key)));
+    }
+
+    private boolean compareKeys(K key1, K key2) {
+        return Objects.hashCode(key1) == Objects.hashCode(key2)
+                && Objects.equals(key1, key2);
+    }
+
     @Override
     public boolean put(K key, V value) {
-        if ((float) count / capacity >= LOAD_FACTOR) {
+        if (count >= LOAD_FACTOR * capacity) {
             expand();
         }
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         boolean isEmpty = table[index] == null;
         if (isEmpty) {
             table[index] = new MapEntry<>(key, value);
@@ -53,23 +62,21 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public V get(K key) {
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         boolean getValue = table[index] != null;
         MapEntry<K, V> rsl = table[index];
         if (rsl != null) {
-            getValue = (Objects.hashCode(rsl.key) == Objects.hashCode(key)
-                    && Objects.equals(rsl.key, key));
+            getValue = compareKeys(rsl.key, key);
         }
         return getValue ? rsl.value : null;
     }
 
     @Override
     public boolean remove(K key) {
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = index(key);
         boolean removed = table[index] != null;
         if (removed) {
-            if (Objects.hashCode(table[index].key) == Objects.hashCode(key)
-                    && Objects.equals(table[index].key, key)) {
+            if (compareKeys(table[index].key, key)) {
                 table[index] = null;
                 modCount++;
             } else {
