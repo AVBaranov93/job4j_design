@@ -2,8 +2,7 @@ import java.io.FileOutputStream;
 
 public class Multiple {
     public static void main(String[] args) {
-        try {
-            FileOutputStream out = new FileOutputStream("data/result.txt");
+        try (FileOutputStream out = new FileOutputStream("data/result.txt")) {
             out.write("1*1=1".getBytes());
             out.write(System.lineSeparator().getBytes());
             out.write("1*2=2".getBytes());
