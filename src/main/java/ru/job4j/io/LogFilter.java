@@ -17,7 +17,7 @@ public class LogFilter {
             rsl = reader.lines()
                     .filter(e -> {
                         String[] arr = e.split(" ");
-                        return arr[arr.length - 2].equals("404");
+                        return "404".equals(arr[arr.length - 2]);
                     })
                     .toList();
         } catch (IOException e) {
