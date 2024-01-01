@@ -10,12 +10,11 @@ public class Analysis {
             while (reader.ready()) {
                 String rsl = reader.readLine();
                 if (available && (rsl.contains("400") || rsl.contains("500"))) {
-                    writer.write(rsl.split(" ", 2)[1] + ";");
+                    writer.append(rsl.split(" ", 2)[1]).append(";");
                     available = false;
                 }
                 if (!available && (rsl.contains("200") || rsl.contains("300"))) {
-                    writer.write(rsl.split(" ", 2)[1] + ";");
-                    writer.println();
+                    writer.append(rsl.split(" ", 2)[1]).append(";").append(System.lineSeparator());
                     available = true;
                 }
             }
