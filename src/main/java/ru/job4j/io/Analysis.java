@@ -1,36 +1,23 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.*;
 
 public class Analysis {
     public void unavailable(String source, String target) {
-        List<String[]> rsl;
-        List<String> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(source));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
-            rsl = reader.lines()
-                    .map(e -> e.split(" ", 2))
-                    .toList();
-            StringBuilder builder = new StringBuilder();
-            boolean available = "200".equals(rsl.get(0)[0])
-                    || "300".equals(rsl.get(0)[0]);
-            for (String[] value : rsl) {
-                if (available && ("400".equals(value[0]) || "500".equals(value[0]))) {
-                    builder.append(value[1]).append(";");
+        PrintWriter writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+            boolean available = true;
+            while (reader.ready()) {
+                String rsl = reader.readLine();
+                if (available && (rsl.contains("400") || rsl.contains("500"))) {
+                    writer.write(rsl.split(" ", 2)[1] + ";");
                     available = false;
                 }
-                if (!available && ("200".equals(value[0]) || "300".equals(value[0]))) {
-                    builder.append(value[1]).append(";");
-                    result.add(builder.toString());
-                    builder.setLength(0);
+                if (!available && (rsl.contains("200") || rsl.contains("300"))) {
+                    writer.write(rsl.split(" ", 2)[1] + ";");
+                    writer.println();
                     available = true;
                 }
-            }
-
-            for (String value : result) {
-                writer.write(value);
-                writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
