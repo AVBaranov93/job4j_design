@@ -28,9 +28,11 @@ public class Search {
         String extension = args[1];
         if (!Files.exists(path)) {
             throw new IllegalArgumentException(String.format("Not exist %s", path.toAbsolutePath()));
-        } else if (!Files.isDirectory(path)) {
+        }
+        if (!Files.isDirectory(path)) {
             throw new IllegalArgumentException(String.format("Not directory %s", path.toAbsolutePath()));
-        } else if (!(extension.startsWith(".") && extension.length() > 1)) {
+        }
+        if (!(extension.startsWith(".") && extension.length() > 1)) {
             throw new IllegalArgumentException("Wrong extension format");
         }
     }
