@@ -21,10 +21,17 @@ public class Search {
     }
 
     private static void validateInout(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
-        } else if (args[1] == null) {
-            throw new IllegalArgumentException("Extension not specified");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Wrong number of entry parameters");
+        }
+        Path path = Path.of(args[0]);
+        String extension = args[1];
+        if (!Files.exists(path)) {
+            throw new IllegalArgumentException(String.format("Not exist %s", path.toAbsolutePath()));
+        } else if (!Files.isDirectory(path)) {
+            throw new IllegalArgumentException(String.format("Not directory %s", path.toAbsolutePath()));
+        } else if (!(extension.startsWith(".") && extension.length() > 1)) {
+            throw new IllegalArgumentException("Wrong extension format");
         }
     }
 }
