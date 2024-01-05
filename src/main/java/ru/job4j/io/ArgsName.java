@@ -28,19 +28,13 @@ public class ArgsName {
             if (!value.contains("=")) {
                 throw new IllegalArgumentException(String.format("Error: This argument '%s' does not contain an equal sign", value));
             }
-        }
-        for (String value : args) {
             if (value.split("=", 2)[0].startsWith("-")
                     & value.split("=", 2)[0].length() == 1) {
                 throw new IllegalArgumentException(String.format("Error: This argument '%s' does not contain a key", value));
             }
-        }
-        for (String value : args) {
             if ("".equals(value.split("=", 2)[1])) {
                 throw new IllegalArgumentException(String.format("Error: This argument '%s' does not contain a value", value));
             }
-        }
-        for (String value : args) {
             if (!value.startsWith("-")) {
                 throw new IllegalArgumentException(String.format("Error: This argument '%s' does not start with a '-' character", value));
             }
