@@ -1,0 +1,12 @@
+hello
+good day
+bus
+tree
+country
+ocean
+car
+nice
+house
+street
+town
+sea
