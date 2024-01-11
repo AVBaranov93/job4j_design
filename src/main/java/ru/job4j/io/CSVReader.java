@@ -26,14 +26,21 @@ public class CSVReader {
             builder.setLength(builder.length() - 1);
             out.add(builder.toString());
         }
-        try (PrintWriter writer = new PrintWriter(new FileWriter(argsName.get("out")))) {
-            for (String value : out) {
-                writer.println(value);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+        String target = argsName.get("out");
+        if ("stdout".equals(target)) {
+            for (String value : out) {
+                System.out.println(value);
+            }
+        } else {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(target))) {
+                for (String value : out) {
+                    writer.println(value);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static List<List<String>> filter(List<List<String>> source, String[] filter) {
@@ -65,8 +72,8 @@ public class CSVReader {
         if (!args[0].endsWith(".csv")) {
             throw new IllegalArgumentException("source file must have '.csv' format");
         }
-        if (!args[2].endsWith(".csv")) {
-            throw new IllegalArgumentException("dest file must have '.csv' format'");
+        if (!(args[2].endsWith(".csv") || "stdout".equals(args[2].split("=")[args[2].split("=").length - 1]))) {
+            throw new IllegalArgumentException("dest file must be 'stdout' or have a '.csv' format");
         }
         ArgsName argsName = ArgsName.of(args);
         handle(argsName);
