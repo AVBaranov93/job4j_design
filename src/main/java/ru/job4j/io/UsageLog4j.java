@@ -8,7 +8,6 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        try {
             byte b = 1;
             short s = 10;
             int i = 100;
@@ -20,9 +19,5 @@ public class UsageLog4j {
             LOG.debug(String.format("%s%s", "byte value: {}, short value: {}, int value: {}, long value: {}, ",
                             "float value: {}, double value: {}, char value: {}, boolean value: "),
                     b, s, i, l, f, d, c, bl);
-            throw new Exception("Not supported code");
-        } catch (Exception e) {
-            LOG.error("Exception in log example", e);
-        }
     }
 }
