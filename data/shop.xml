@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<shop isOpen="true" square="100" shopName="shop">
+    <product productName="apple" price="100.0"/>
+    <addresses>
+        <address>firstAddr</address>
+        <address>secondAddr</address>
+        <address>thirdAddr</address>
+    </addresses>
+</shop>
