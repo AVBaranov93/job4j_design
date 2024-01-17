@@ -1,5 +1,8 @@
 package ru.job4j.serialization;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -7,6 +10,7 @@ import javax.xml.bind.annotation.*;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -31,6 +35,26 @@ public class Shop {
         this.shopName = shopName;
         this.product = product;
         this.addresses = addresses;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public double getSquare() {
+        return square;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public String[] getAddresses() {
+        return addresses;
     }
 
     @Override
@@ -62,5 +86,11 @@ public class Shop {
             Shop deserialisedShop = (Shop) unmarshaller.unmarshal(reader);
             System.out.println(deserialisedShop);
         }
+
+        JSONObject jsonObject = new JSONObject(shop);
+        System.out.println(jsonObject);
+        JSONArray jsonArray = new JSONArray(List.of(shop.getAddresses()));
+        System.out.println(jsonArray);
+
     }
 }
