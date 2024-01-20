@@ -45,20 +45,8 @@ public class FindByCriteria {
     }
 
     private static List<Path> findByMask(Path root, String mask) throws IOException {
-        StringBuilder regEx = new StringBuilder();
-        for (Character rsl : mask.toCharArray()) {
-            if (rsl == '*') {
-                regEx.append(".*");
-            } else if (rsl == '?') {
-                regEx.append(".");
-            } else if (rsl == '.') {
-                regEx.append("\\.");
-            } else {
-                regEx.append(rsl);
-            }
-        }
-        return findByRegex(root, regEx.toString());
-
+        return findByRegex(root, mask.replace(".", "\\.")
+                .replace("*", ".*").replace("?", "."));
     }
 
     private static void validateInout(ArgsName argsName) {
