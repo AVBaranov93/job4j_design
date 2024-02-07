@@ -1,0 +1,12 @@
+insert into devices (name, price) values ('notebook', 20000);
+insert into devices (name, price) values ('monitor', 4500);
+insert into devices (name, price) values ('smartphone', 10000);
+insert into people (name) values ('jack');
+insert into people (name) values ('kate');
+insert into people (name) values ('john');
+insert into devices_people (device_id, people_id) values (1, 2);
+insert into devices_people (device_id, people_id) values (2, 1);
+insert into devices_people (device_id, people_id) values (2, 2);
+insert into devices_people (device_id, people_id) values (3, 1);
+insert into devices_people (device_id, people_id) values (3, 2);
+insert into devices_people (device_id, people_id) values (3, 3);
