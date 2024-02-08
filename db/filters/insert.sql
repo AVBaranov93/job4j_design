@@ -1,0 +1,14 @@
+insert into type (name) values ('сыр');
+insert into type (name) values ('колбаса');
+insert into type (name) values ('молоко');
+insert into type (name) values ('мороженое');
+insert into product (name, expired_date, price, type_id) values ('сыр плавленный', '20240210', 150, 1);
+insert into product (name, expired_date, price, type_id) values ('сыр мацарелла', '20240102', 200, 1);
+insert into product (name, expired_date, price, type_id) values ('сыр с плесенью', '20240215', 180, 1);
+insert into product (name, expired_date, price, type_id) values ('колбаса цыганская', '20230201', 100, 2);
+insert into product (name, expired_date, price, type_id) values ('колбаса молочная', '20240310', 400, 2);
+insert into product (name, expired_date, price, type_id) values ('колбаса говяжья', '20240222', 300, 2);
+insert into product (name, expired_date, price, type_id) values ('молоко гринагро', '20240101', 100, 3);
+insert into product (name, expired_date, price, type_id) values ('молоко хороль', '20240325', 120, 3);
+insert into product (name, expired_date, price, type_id) values ('мороженое магнат', '20240611', 200, 4);
+insert into product (name, expired_date, price, type_id) values ('мороженое пломбир', '20240421', 120, 4);
