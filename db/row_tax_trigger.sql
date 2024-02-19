@@ -4,13 +4,14 @@ or replace function row_tax()
 $$
     BEGIN
         update products
-        set price = price + price * 0.2;
+        set price = price + price * 0.2
+        where id = new.id;
         return NEW;
     END;
 $$
 LANGUAGE 'plpgsql';
 
-create trigger row_tax__trigger
+create trigger row_tax_trigger
     before insert
     on products
     for each row
