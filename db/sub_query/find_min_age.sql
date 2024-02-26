@@ -1,0 +1,1 @@
+select * from customers where age = (select min(age) from customers);
