@@ -1,6 +1,6 @@
 package ru.job4j.jdbc;
 
-import java.io.FileReader;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -18,7 +18,7 @@ public class TableEditor implements AutoCloseable {
     }
 
     private void initConnection() throws Exception {
-        try (FileReader in = new FileReader("data/app.properties")) {
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
             properties.load(in);
         }
         connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("login"), properties.getProperty("password"));
